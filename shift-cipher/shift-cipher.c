@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "../lib/cipher.h"
+#include "../lib/ioutils.h"
 
 int main(int argc, char *argv[]) {
     int c, shift_number = 3; // default to Caeser cipher
@@ -18,7 +19,7 @@ int main(int argc, char *argv[]) {
         }
 
     char *shifted_alphabet = get_shifted_alphabet(shift_number);
-    printf("%s\n", encrypt_with_alphabet("helloworld", shifted_alphabet));
+    printf("%s", encrypt_with_alphabet(slurp_stdin(), shifted_alphabet));
 
     return 0;
 }
