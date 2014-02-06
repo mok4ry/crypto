@@ -25,6 +25,25 @@ char *get_shifted_alphabet(int shift_number) {
 	return shifted_alphabet;
 }
 
+char *get_affine_alphabet(int coefficient, int shift_number) {
+	int index = 0, corresponding_index;
+	char *affine_alphabet = get_empty_alphabet();
+
+	while (index < 26) {  // uppercase part
+		corresponding_index = (coefficient * index + shift_number) % 26;
+		affine_alphabet[index] = ALPHABET[corresponding_index];
+		index++;
+	}
+
+	while (index < 52) {  // lowercase part
+		corresponding_index = ((coefficient * index + shift_number) % 26) + 26;
+		affine_alphabet[index] = ALPHABET[corresponding_index];
+		index++;
+	}
+
+	return affine_alphabet;
+}
+
 char *get_empty_alphabet() {
 	char *empty_alphabet = malloc(ALPHABET_STRING_LENGTH);
 	empty_alphabet[ALPHABET_STRING_LENGTH - 1] = '\0';
