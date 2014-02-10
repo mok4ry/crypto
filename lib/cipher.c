@@ -1,10 +1,18 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include "cipher.h"
 
 // 52 places for letters (upper and lowercase) and one for null terminator
 const char *ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const int ALPHABET_STRING_LENGTH = 53;
+
+int get_char_alphabet_index (char c);
+bool is_alpha (char c);
+bool is_lowercase_letter(char c);
+bool is_uppercase_letter(char c);
+char *lowercase_string(char *str);
 
 char *get_shifted_alphabet(int shift_number) {
 	int index = 0, corresponding_index;
@@ -60,6 +68,29 @@ char *encrypt_with_alphabet(char *plaintext, char *alphabet) {
 			alphabet[alphabet_index] : plaintext[i];
 	}
 	return encrypted;
+}
+
+int plaintext_likelihood(char *in) {
+    char *common_letter_combos[5] = {"th", "the", "er", "on", "an"};
+    char *low = lowercase_string(in);
+    int score = 0, index;
+
+    for (index = 0; index < 5; index++) {
+        score += (strstr(low, common_letter_combos[index]) != NULL) ? 1 : 0;
+    }
+
+    return score;
+}
+
+char *lowercase_string(char *str) {
+	int length = strlen(str);
+	char *lowercase = malloc(sizeof(char) * (length + 1));
+	lowercase[length] = '\0';
+	int i;
+	for (i = 0; i < length; i++) {
+		lowercase[i] = tolower(str[i]);
+	}
+	return lowercase;
 }
 
 int get_char_alphabet_index (char c) {
