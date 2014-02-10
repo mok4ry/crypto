@@ -5,7 +5,7 @@
 #include "../lib/ioutils.h"
 #include "../lib/cryptomath.h"
 
-void print_all_likely(char *in) {
+void print_most_likely(char *in) {
     int coefficients[] = {1,3,5,7,9,11,15,17,19,21,23,25};
     int i, j;
 
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 		}
 
 	if (brute_force_break) {
-        print_all_likely(slurp_stdin());
+        print_most_likely(slurp_stdin());
     } else if (are_coprime(a, 26)) {
 		char *affine_alphabet = get_affine_alphabet(a, shift_number);
 		printf("%s", encrypt_with_alphabet(slurp_stdin(), affine_alphabet));
