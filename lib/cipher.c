@@ -71,11 +71,11 @@ char *encrypt_with_alphabet(char *plaintext, char *alphabet) {
 }
 
 int plaintext_likelihood(char *in) {
-    char *common_letter_combos[5] = {"th", "the", "er", "on", "an"};
+    char *common_letter_combos[8] = {"th", "the", "er", "on", "an", "ss", "ee", "tt"};
     char *low = lowercase_string(in);
     int score = 0, index;
 
-    for (index = 0; index < 5; index++) {
+    for (index = 0; index < 8; index++) {
         score += (strstr(low, common_letter_combos[index]) != NULL) ? 1 : 0;
     }
 

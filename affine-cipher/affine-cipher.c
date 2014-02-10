@@ -13,7 +13,7 @@ void print_all_likely(char *in) {
         for (j = 1; j < 26; j++) {
             char *affine_alphabet = get_affine_alphabet(coefficients[i], j);
             char *ciphertext = encrypt_with_alphabet(in, affine_alphabet);
-            if (plaintext_likelihood(ciphertext) > 1) {
+            if (plaintext_likelihood(ciphertext) > 3) {
                 printf("a: %d, n: %d - %s", coefficients[i], j, ciphertext);
             }
         }
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
 	while ((c = getopt(argc, argv, "ba:n:")) != -1)
 		switch (c) {
-            case 'b':
+            case 'b':  // attempt to break input with affine cipher
                 brute_force_break = 1;
                 break;
 			case 'a':  // specify coefficient
